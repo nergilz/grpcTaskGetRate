@@ -1,0 +1,22 @@
+// proto/rate.proto
+
+syntax = "proto3";
+
+package getrate;
+
+option go_package = "grpcTaskGetRate/proto/getrate";
+
+service Greeter {
+  rpc GerRates (RateRequest) returns (RateResponse) {}
+}
+
+message RateRequest {
+  string market = 1;
+}
+
+message RateResponse {
+  string market = 1;
+  float ask = 2;
+  float bid = 3;
+  uint64 createAt = 4;
+}
