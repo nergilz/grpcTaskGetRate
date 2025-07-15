@@ -9,12 +9,11 @@
 package getrate
 
 import (
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
-
-	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
-	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 )
 
 const (
@@ -71,9 +70,9 @@ func (x *RateRequest) GetMarket() string {
 type RateResponse struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Market        string                 `protobuf:"bytes,1,opt,name=market,proto3" json:"market,omitempty"`
-	Ask           float32                `protobuf:"fixed32,2,opt,name=ask,proto3" json:"ask,omitempty"`
-	Bid           float32                `protobuf:"fixed32,3,opt,name=bid,proto3" json:"bid,omitempty"`
-	CreateAt      uint64                 `protobuf:"varint,4,opt,name=createAt,proto3" json:"createAt,omitempty"`
+	Ask           *Data                  `protobuf:"bytes,2,opt,name=ask,proto3" json:"ask,omitempty"`
+	Bid           *Data                  `protobuf:"bytes,3,opt,name=bid,proto3" json:"bid,omitempty"`
+	Timestamp     uint64                 `protobuf:"varint,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -115,25 +114,101 @@ func (x *RateResponse) GetMarket() string {
 	return ""
 }
 
-func (x *RateResponse) GetAsk() float32 {
+func (x *RateResponse) GetAsk() *Data {
 	if x != nil {
 		return x.Ask
 	}
-	return 0
+	return nil
 }
 
-func (x *RateResponse) GetBid() float32 {
+func (x *RateResponse) GetBid() *Data {
 	if x != nil {
 		return x.Bid
 	}
+	return nil
+}
+
+func (x *RateResponse) GetTimestamp() uint64 {
+	if x != nil {
+		return x.Timestamp
+	}
 	return 0
 }
 
-func (x *RateResponse) GetCreateAt() uint64 {
+type Data struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Price         string                 `protobuf:"bytes,1,opt,name=price,proto3" json:"price,omitempty"`
+	Volume        string                 `protobuf:"bytes,2,opt,name=volume,proto3" json:"volume,omitempty"`
+	Amount        string                 `protobuf:"bytes,3,opt,name=amount,proto3" json:"amount,omitempty"`
+	Factor        string                 `protobuf:"bytes,4,opt,name=factor,proto3" json:"factor,omitempty"`
+	TypeAsk       string                 `protobuf:"bytes,5,opt,name=typeAsk,proto3" json:"typeAsk,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Data) Reset() {
+	*x = Data{}
+	mi := &file_rate_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Data) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Data) ProtoMessage() {}
+
+func (x *Data) ProtoReflect() protoreflect.Message {
+	mi := &file_rate_proto_msgTypes[2]
 	if x != nil {
-		return x.CreateAt
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
 	}
-	return 0
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Data.ProtoReflect.Descriptor instead.
+func (*Data) Descriptor() ([]byte, []int) {
+	return file_rate_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *Data) GetPrice() string {
+	if x != nil {
+		return x.Price
+	}
+	return ""
+}
+
+func (x *Data) GetVolume() string {
+	if x != nil {
+		return x.Volume
+	}
+	return ""
+}
+
+func (x *Data) GetAmount() string {
+	if x != nil {
+		return x.Amount
+	}
+	return ""
+}
+
+func (x *Data) GetFactor() string {
+	if x != nil {
+		return x.Factor
+	}
+	return ""
+}
+
+func (x *Data) GetTypeAsk() string {
+	if x != nil {
+		return x.TypeAsk
+	}
+	return ""
 }
 
 var File_rate_proto protoreflect.FileDescriptor
@@ -143,14 +218,20 @@ const file_rate_proto_rawDesc = "" +
 	"\n" +
 	"rate.proto\x12\agetrate\"%\n" +
 	"\vRateRequest\x12\x16\n" +
-	"\x06market\x18\x01 \x01(\tR\x06market\"f\n" +
+	"\x06market\x18\x01 \x01(\tR\x06market\"\x86\x01\n" +
 	"\fRateResponse\x12\x16\n" +
-	"\x06market\x18\x01 \x01(\tR\x06market\x12\x10\n" +
-	"\x03ask\x18\x02 \x01(\x02R\x03ask\x12\x10\n" +
-	"\x03bid\x18\x03 \x01(\x02R\x03bid\x12\x1a\n" +
-	"\bcreateAt\x18\x04 \x01(\x04R\bcreateAt2D\n" +
+	"\x06market\x18\x01 \x01(\tR\x06market\x12\x1f\n" +
+	"\x03ask\x18\x02 \x01(\v2\r.getrate.DataR\x03ask\x12\x1f\n" +
+	"\x03bid\x18\x03 \x01(\v2\r.getrate.DataR\x03bid\x12\x1c\n" +
+	"\ttimestamp\x18\x04 \x01(\x04R\ttimestamp\"~\n" +
+	"\x04Data\x12\x14\n" +
+	"\x05price\x18\x01 \x01(\tR\x05price\x12\x16\n" +
+	"\x06volume\x18\x02 \x01(\tR\x06volume\x12\x16\n" +
+	"\x06amount\x18\x03 \x01(\tR\x06amount\x12\x16\n" +
+	"\x06factor\x18\x04 \x01(\tR\x06factor\x12\x18\n" +
+	"\atypeAsk\x18\x05 \x01(\tR\atypeAsk2D\n" +
 	"\aGreeter\x129\n" +
-	"\bGerRates\x12\x14.getrate.RateRequest\x1a\x15.getrate.RateResponse\"\x00B\x1fZ\x1dgrpcTaskGetRate/proto/getrateb\x06proto3"
+	"\bGetRates\x12\x14.getrate.RateRequest\x1a\x15.getrate.RateResponse\"\x00B\x1fZ\x1dgrpcTaskGetRate/proto/getrateb\x06proto3"
 
 var (
 	file_rate_proto_rawDescOnce sync.Once
@@ -164,19 +245,22 @@ func file_rate_proto_rawDescGZIP() []byte {
 	return file_rate_proto_rawDescData
 }
 
-var file_rate_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_rate_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_rate_proto_goTypes = []any{
 	(*RateRequest)(nil),  // 0: getrate.RateRequest
 	(*RateResponse)(nil), // 1: getrate.RateResponse
+	(*Data)(nil),         // 2: getrate.Data
 }
 var file_rate_proto_depIdxs = []int32{
-	0, // 0: getrate.Greeter.GerRates:input_type -> getrate.RateRequest
-	1, // 1: getrate.Greeter.GerRates:output_type -> getrate.RateResponse
-	1, // [1:2] is the sub-list for method output_type
-	0, // [0:1] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	2, // 0: getrate.RateResponse.ask:type_name -> getrate.Data
+	2, // 1: getrate.RateResponse.bid:type_name -> getrate.Data
+	0, // 2: getrate.Greeter.GetRates:input_type -> getrate.RateRequest
+	1, // 3: getrate.Greeter.GetRates:output_type -> getrate.RateResponse
+	3, // [3:4] is the sub-list for method output_type
+	2, // [2:3] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_rate_proto_init() }
@@ -190,7 +274,7 @@ func file_rate_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_rate_proto_rawDesc), len(file_rate_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

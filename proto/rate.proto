@@ -7,7 +7,7 @@ package getrate;
 option go_package = "grpcTaskGetRate/proto/getrate";
 
 service Greeter {
-  rpc GerRates (RateRequest) returns (RateResponse) {}
+  rpc GetRates (RateRequest) returns (RateResponse) {}
 }
 
 message RateRequest {
@@ -16,7 +16,15 @@ message RateRequest {
 
 message RateResponse {
   string market = 1;
-  float ask = 2;
-  float bid = 3;
-  uint64 createAt = 4;
+  Data ask = 2;
+  Data bid = 3;
+  uint64 timestamp = 4;
+}
+
+message Data {
+ 	string price   = 1; 
+	string volume  = 2; 
+	string amount  = 3; 
+	string factor  = 4; 
+	string typeAsk = 5; 
 }

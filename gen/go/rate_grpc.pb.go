@@ -21,14 +21,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	Greeter_GerRates_FullMethodName = "/getrate.Greeter/GerRates"
+	Greeter_GetRates_FullMethodName = "/getrate.Greeter/GetRates"
 )
 
 // GreeterClient is the client API for Greeter service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GreeterClient interface {
-	GerRates(ctx context.Context, in *RateRequest, opts ...grpc.CallOption) (*RateResponse, error)
+	GetRates(ctx context.Context, in *RateRequest, opts ...grpc.CallOption) (*RateResponse, error)
 }
 
 type greeterClient struct {
@@ -39,10 +39,10 @@ func NewGreeterClient(cc grpc.ClientConnInterface) GreeterClient {
 	return &greeterClient{cc}
 }
 
-func (c *greeterClient) GerRates(ctx context.Context, in *RateRequest, opts ...grpc.CallOption) (*RateResponse, error) {
+func (c *greeterClient) GetRates(ctx context.Context, in *RateRequest, opts ...grpc.CallOption) (*RateResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(RateResponse)
-	err := c.cc.Invoke(ctx, Greeter_GerRates_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Greeter_GetRates_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -53,7 +53,7 @@ func (c *greeterClient) GerRates(ctx context.Context, in *RateRequest, opts ...g
 // All implementations must embed UnimplementedGreeterServer
 // for forward compatibility.
 type GreeterServer interface {
-	GerRates(context.Context, *RateRequest) (*RateResponse, error)
+	GetRates(context.Context, *RateRequest) (*RateResponse, error)
 	mustEmbedUnimplementedGreeterServer()
 }
 
@@ -64,8 +64,8 @@ type GreeterServer interface {
 // pointer dereference when methods are called.
 type UnimplementedGreeterServer struct{}
 
-func (UnimplementedGreeterServer) GerRates(context.Context, *RateRequest) (*RateResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GerRates not implemented")
+func (UnimplementedGreeterServer) GetRates(context.Context, *RateRequest) (*RateResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRates not implemented")
 }
 func (UnimplementedGreeterServer) mustEmbedUnimplementedGreeterServer() {}
 func (UnimplementedGreeterServer) testEmbeddedByValue()                 {}
@@ -88,20 +88,20 @@ func RegisterGreeterServer(s grpc.ServiceRegistrar, srv GreeterServer) {
 	s.RegisterService(&Greeter_ServiceDesc, srv)
 }
 
-func _Greeter_GerRates_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Greeter_GetRates_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GreeterServer).GerRates(ctx, in)
+		return srv.(GreeterServer).GetRates(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Greeter_GerRates_FullMethodName,
+		FullMethod: Greeter_GetRates_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GreeterServer).GerRates(ctx, req.(*RateRequest))
+		return srv.(GreeterServer).GetRates(ctx, req.(*RateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -114,8 +114,8 @@ var Greeter_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*GreeterServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GerRates",
-			Handler:    _Greeter_GerRates_Handler,
+			MethodName: "GetRates",
+			Handler:    _Greeter_GetRates_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
