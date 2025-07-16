@@ -229,8 +229,8 @@ const file_rate_proto_rawDesc = "" +
 	"\x06volume\x18\x02 \x01(\tR\x06volume\x12\x16\n" +
 	"\x06amount\x18\x03 \x01(\tR\x06amount\x12\x16\n" +
 	"\x06factor\x18\x04 \x01(\tR\x06factor\x12\x18\n" +
-	"\atypeAsk\x18\x05 \x01(\tR\atypeAsk2D\n" +
-	"\aGreeter\x129\n" +
+	"\atypeAsk\x18\x05 \x01(\tR\atypeAsk2B\n" +
+	"\x05Rates\x129\n" +
 	"\bGetRates\x12\x14.getrate.RateRequest\x1a\x15.getrate.RateResponse\"\x00B\x1fZ\x1dgrpcTaskGetRate/proto/getrateb\x06proto3"
 
 var (
@@ -254,8 +254,8 @@ var file_rate_proto_goTypes = []any{
 var file_rate_proto_depIdxs = []int32{
 	2, // 0: getrate.RateResponse.ask:type_name -> getrate.Data
 	2, // 1: getrate.RateResponse.bid:type_name -> getrate.Data
-	0, // 2: getrate.Greeter.GetRates:input_type -> getrate.RateRequest
-	1, // 3: getrate.Greeter.GetRates:output_type -> getrate.RateResponse
+	0, // 2: getrate.Rates.GetRates:input_type -> getrate.RateRequest
+	1, // 3: getrate.Rates.GetRates:output_type -> getrate.RateResponse
 	3, // [3:4] is the sub-list for method output_type
 	2, // [2:3] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name

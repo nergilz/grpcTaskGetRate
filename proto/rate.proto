@@ -6,7 +6,7 @@ package getrate;
 
 option go_package = "grpcTaskGetRate/proto/getrate";
 
-service Greeter {
+service Rates {
   rpc GetRates (RateRequest) returns (RateResponse) {}
 }
 
